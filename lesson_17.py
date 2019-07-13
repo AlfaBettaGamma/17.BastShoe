@@ -44,29 +44,51 @@ def Undo(stresult, resultList):
     resultList.reverse()
     result = []
     vl = stresult
+    p = 0
+    p3 = 0
+    p5 = 0
+    p4 = 0
+    n = 0
     for i in range(len(resultList)):
-      if resultList[i] == '1' and resultList[i+2] == '1' and resultList[i+1] == vl:
-        result.append(resultList[i+3])
-        result = ''.join(result)
+      if resultList[i] == '1':
+        for j in range(i,len(resultList)):
+          if resultList[j] == '1':
+            p += 1
+          elif resultList[j] == '2':
+            p += 1
+          elif resultList[j] == '4':
+            break
         break
-      elif resultList[i] == '1' and resultList[i+2] != '4':
-        result.append(resultList[i+1])
-        result = ''.join(result)
+      elif resultList[i] == '2' :
+        for j in range(i,len(resultList)): 
+          if resultList[j] == '1':
+            p += 1
+          elif resultList[j] == '2':
+            p += 1
+          elif resultList[j] == '4':
+            break
         break
-      elif resultList[i] == '1' and resultList[i+2] == '4':
-        result.append(resultList[i+1])
-        result = ''.join(result)
-        break
-      if resultList[i] == '1' and resultList[i+2] == '1' and resultList[i+1] == vl:
-        result.append(resultList[i+3])
-        result = ''.join(result)
-        break
-      elif resultList[i] == '2' and resultList[0] == resultList[i+1]:
-        continue
-      elif resultList[i] == '2' and resultList[0] != resultList[i+1]:
-        result.append(resultList[i+1])
-        result = ''.join(result)
-        break
+      elif resultList[i] == '4' :
+        p4 += 1
+      elif resultList[i] == '3' :
+        p3 += 1
+      elif resultList[i] == '5':
+        p5 += 1
+    if (p5+p4+p3+p)*2-1 == len(resultList):
+      if p4 >= p+p5:
+        return ''
+      else:
+        for j in range(len(resultList)):
+          if resultList[j] == '1' or resultList[j] == '2' or resultList[j] == '5':
+            n += 1
+          if p4 == n :
+            result = resultList[j + 1]
+            break
+    else:
+      for i in range(len(resultList)):
+        if stresult == resultList[i-1] and resultList[i] == '1' or resultList[i] == '2':
+          result = resultList[i + 1]
+          break
     resultList.reverse()
     return result
 
@@ -84,16 +106,18 @@ def Redo(stresult, resultList):
         p4 += 1
       elif resultList[i] == '5' :
         p5 += 1
-    for i in range(len(resultList)):
-      if p5 >= p4:
-        for j in range(len(resultList)):
-          if resultList[j] == '1' or resultList[j] == '2':
-            result = resultList[j-1]
-            resultList.reverse()
-            return result
-      if resultList[i] == '4':
-        result = resultList[i + 1]
-        break
+    if p5 < p4:
+      for i in range(len(resultList)):
+        if resultList[i] == '1' or resultList[i] == '2':
+          result = stresult
+        elif resultList[i] == '4':
+          result = resultList[i + 1]
+          break
+    else:
+      for i in range(len(resultList)):
+        if resultList[i] == '1' or resultList[i] == '2':
+          result = resultList[i - 1]
+          break
     resultList.reverse()
     return result
               
@@ -192,14 +216,14 @@ def BastShoe(command):
       if len(resultList) == 3:
         result = ''
         stresult = result
-      else:
-        result = Undo(stresult, resultList)
+      else:      
         if 'resultList' in globals():
           resultList.append(l[0])
         else:
           vl = []
           vl.append(l[0])
           resultList = vl
+        result = Undo(stresult, resultList)
         resultList.append(result)
         stresult = result
     else:
@@ -210,13 +234,13 @@ def BastShoe(command):
         result = ''
         stresult = result
       else:
-        result = Redo(stresult, resultList)
         if 'resultList' in globals():
           resultList.append(l[0])
         else:
           vl = []
           vl.append(l[0])
           resultList = vl
+        result = Redo(stresult, resultList)
         resultList.append(result)
         stresult = result
     else:
