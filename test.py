@@ -36,7 +36,7 @@ def Delete(l,stresult):
 def Index(l,stresult):
   n = int(l)
   st = list(stresult)
-  if len(st) < n:
+  if len(st) < n or n == 0:
   	return 'неверно введен номер элемента!'
   else:
     result = ''.join(st[n - 1])
@@ -303,6 +303,7 @@ def test3():
   print(1,BastShoe('1 Привет'))
   print(1,BastShoe('1 , мир!'))
   print(1,BastShoe('1 ++'))
+  print(3,BastShoe('3 0'))
   print(3,BastShoe('3 12'))
   print(3,BastShoe('3 13'))
   print(3,BastShoe('3 14'))
