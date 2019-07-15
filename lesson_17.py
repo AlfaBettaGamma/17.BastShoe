@@ -89,10 +89,21 @@ def Undo(stresult, resultList):
             result = resultList[j + 1]
             break
     else:
-      for i in range(len(resultList)):
-        if stresult == resultList[i-1] and resultList[i] == '1' or resultList[i] == '2':
-          result = resultList[i + 1]
-          break
+      if p4 > p:
+        for i in range(len(resultList)):
+          if resultList[i] == '1' or resultList[i] == '2':
+            for j in range(i,len(resultList)):
+              if resultList[j] == '4':
+                result = resultList[j-1]
+                break
+            break
+      else:
+        for j in range(len(resultList)):
+          if resultList[j] == '1' or resultList[j] == '2' or resultList[j] == '5':
+            n += 1
+          if p4 == n :
+            result = resultList[j + 1]
+            break
     resultList.reverse()
     return result
 
