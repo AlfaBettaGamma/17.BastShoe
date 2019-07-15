@@ -36,10 +36,10 @@ def Delete(l,stresult):
 def Index(l,stresult):
   n = int(l)
   st = list(stresult)
-  if len(st) < n or n == 0:
+  if len(st) < n:
     return 'неверно введен номер элемента!'
   else:
-    result = ''.join(st[n - 1])
+    result = ''.join(st[n])
     return result
 
 
