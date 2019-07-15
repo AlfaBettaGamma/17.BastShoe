@@ -76,6 +76,7 @@ def Undo(stresult, resultList):
         p5 += 1
     if (p5+p4+p3+p)*2-1 == len(resultList):
       if p4 >= p+p5:
+        resultList.reverse()
         return ''
       else:
         for j in range(len(resultList)):
@@ -93,33 +94,36 @@ def Undo(stresult, resultList):
     return result
 
 def Redo(stresult, resultList):
-    resultList.reverse()
-    result = []
-    p = 0
-    p4 = 0
-    p5 = 0
+  resultList.reverse()
+  result = []
+  p = 0
+  p4 = 0
+  p5 = 0
+  n = 0
+  for i in range(len(resultList)):
+    if resultList[i] == '1' or resultList[i] == '2':
+      p += 1
+      break
+    elif resultList[i] == '4' :
+      p4 += 1
+    elif resultList[i] == '5' :
+      p5 += 1
+  if p5 < p4:
     for i in range(len(resultList)):
       if resultList[i] == '1' or resultList[i] == '2':
-        p += 1
+        result = stresult
+      elif resultList[i] == '4':
+        n += 1
+      if n == p5:
+        result = resultList[i + 1]
         break
-      elif resultList[i] == '4' :
-        p4 += 1
-      elif resultList[i] == '5' :
-        p5 += 1
-    if p5 < p4:
-      for i in range(len(resultList)):
-        if resultList[i] == '1' or resultList[i] == '2':
-          result = stresult
-        elif resultList[i] == '4':
-          result = resultList[i + 1]
-          break
-    else:
-      for i in range(len(resultList)):
-        if resultList[i] == '1' or resultList[i] == '2':
-          result = resultList[i - 1]
-          break
-    resultList.reverse()
-    return result
+  else:
+    for i in range(len(resultList)):
+      if resultList[i] == '1' or resultList[i] == '2':
+        result = resultList[i - 1]
+        break
+  resultList.reverse()
+  return result
               
 def BastShoe(command):
   truth = False
@@ -249,33 +253,49 @@ def BastShoe(command):
     return 'Неверно введенны данные!'
   return result
 
-print(1,BastShoe('1 Привет'))
-print(1,BastShoe('1 , мир!'))
-print(1,BastShoe('1 ++'))
-print(2,BastShoe('2 2'))
-print(4,BastShoe('4'))
-print(4,BastShoe('4'))
-print(1,BastShoe('1 *'))
-print(4,BastShoe('4'))
-print(4,BastShoe('4'))
-print(4,BastShoe('4'))
-print(3,BastShoe('3 7'))
-print(2,BastShoe('2 100'))
-print(1,BastShoe('1 Привет'))
-print(1,BastShoe('1 , мир!'))
-print(1,BastShoe('1 ++'))
-print(4,BastShoe('4'))
-print(4,BastShoe('4'))
-print(5,BastShoe('5'))
-print(4,BastShoe('4'))
-print(5,BastShoe('5'))
-print(5,BastShoe('5'))
-print(5,BastShoe('5'))
-print(5,BastShoe('5'))
-print(4,BastShoe('4'))
-print(4,BastShoe('4'))
-print(2,BastShoe('2 2'))
-print(4,BastShoe('4'))
-print(5,BastShoe('5'))
-print(5,BastShoe('5'))
-print(5,BastShoe('5'))
+
+def test1 ():
+  print(1,BastShoe('1 Привет'))
+  print(1,BastShoe('1 , мир!'))
+  print(1,BastShoe('1 ++'))
+  print(2,BastShoe('2 2'))
+  print(4,BastShoe('4'))
+  print(4,BastShoe('4'))
+  print(1,BastShoe('1 *'))
+  print(4,BastShoe('4'))
+  print(4,BastShoe('4'))
+  print(4,BastShoe('4'))
+  print(3,BastShoe('3 7'))
+  print(2,BastShoe('2 100'))
+  print(1,BastShoe('1 Привет'))
+  print(1,BastShoe('1 , мир!'))
+  print(1,BastShoe('1 ++'))
+  print(4,BastShoe('4'))
+  print(4,BastShoe('4'))
+  print(5,BastShoe('5'))
+  print(4,BastShoe('4'))
+  print(5,BastShoe('5'))
+  print(5,BastShoe('5'))
+  print(5,BastShoe('5'))
+  print(5,BastShoe('5'))
+  print(4,BastShoe('4'))
+  print(4,BastShoe('4'))
+  print(2,BastShoe('2 2'))
+  print(4,BastShoe('4'))
+  print(5,BastShoe('5'))
+  print(5,BastShoe('5'))
+  print(5,BastShoe('5'))
+  
+def test2():
+  print(1,BastShoe('1 Привет'))
+  print(1,BastShoe('1 , мир!'))
+  print(1,BastShoe('1 ++'))
+  print(4,BastShoe('4'))
+  print(4,BastShoe('4'))
+  print(4,BastShoe('4'))
+  print(5,BastShoe('5'))
+  print(5,BastShoe('5'))
+  print(5,BastShoe('5'))
+
+test = test1()
+test = test2()
