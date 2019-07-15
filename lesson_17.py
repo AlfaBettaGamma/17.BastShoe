@@ -36,8 +36,11 @@ def Delete(l,stresult):
 def Index(l,stresult):
   n = int(l)
   st = list(stresult)
-  result = ''.join(st[n - 1])
-  return result
+  if len(st) < n:
+    return 'неверно введен номер элемента!'
+  else:
+    result = ''.join(st[n - 1])
+    return result
 
 
 def Undo(stresult, resultList):
@@ -199,7 +202,6 @@ def BastShoe(command):
         if 'stresult' in globals():
           if len(stresult) > 0:
             result = Index(l[1],stresult)
-            stresult = result
           else:
             return ''
         else:
