@@ -37,7 +37,7 @@ def Index(l,stresult):
   n = int(l)
   st = list(stresult)
   if len(st) < n or n == 0:
-  	return 'неверно введен номер элемента!'
+    return 'неверно введен номер элемента!'
   else:
     result = ''.join(st[n - 1])
     return result
@@ -148,75 +148,84 @@ def BastShoe(command):
       else:
         l.append(command[i])
   if l[0] == '1':
-    if 'stresult' in globals():
-      if len(stresult) == 0:
+    if len(l) > 1:
+      if 'stresult' in globals():
+        if len(stresult) == 0:
+          result = AddingFirst(l[1])
+          stresult = result
+        else:  
+          result = Adding(l[1],stresult)
+          stresult = result
+      else:
         result = AddingFirst(l[1])
         stresult = result
-      else:  
-        result = Adding(l[1],stresult)
-        stresult = result
-    else:
-      result = AddingFirst(l[1])
-      stresult = result
-    if 'resultList' in globals():
-      resultList.append(l[0])
-    else:
-      vl = []
-      vl.append(l[0])
-      resultList = vl
-    if 'resultList' in globals():
-      resultList.append(result)
-    else:
-      vl = []
-      resultList = vl
-      resultList.append(result)
-  elif l[0] == '2':
-    if 'stresult' in globals():
-      truth = is_digit(l[1])
-      if truth is True:
-        if 'stresult' in globals():
-          result = Delete(l[1],stresult)
-          stresult = result
-        else:
-          result = ''
-        if 'resultList' in globals():
-          resultList.append(l[0])
-        else:
-          vl = []
-          vl.append(l[0])
-          resultList = vl
-        if 'resultList' in globals():
-          resultList.append(result)
-        else:
-          vl = []
-          resultList = vl
-          resultList.append(result)
+      if 'resultList' in globals():
+        resultList.append(l[0])
       else:
-        return 'Для удаления нужно указать число! Неверные данные!'
-    else:
-      return 'Неверные данные!'
-  elif l[0] == '3':
-    if 'stresult' in globals():
-      truth = is_digit(l[1])
-      if truth is True:
-        if 'stresult' in globals():
-          if len(stresult) > 0:
-            result = Index(l[1],stresult)
-          else:
-            return ''
-        else:
-          result = ''
-        if 'resultList' in globals():
-          resultList.append(l[0])
-        else:
-          vl = []
-          vl.append(l[0])
-          resultList = vl
+        vl = []
+        vl.append(l[0])
+        resultList = vl
+      if 'resultList' in globals():
         resultList.append(result)
       else:
-        return 'Нужно указать число! Неверные данные!'
+        vl = []
+        resultList = vl
+        resultList.append(result)
     else:
+      return 'Невведено значение для добавления!'
+  elif l[0] == '2':
+    if len(l) > 1:
+      if 'stresult' in globals():
+        truth = is_digit(l[1])
+        if truth is True:
+          if 'stresult' in globals():
+            result = Delete(l[1],stresult)
+            stresult = result
+          else:
+            result = ''
+          if 'resultList' in globals():
+            resultList.append(l[0])
+          else:
+            vl = []
+            vl.append(l[0])
+            resultList = vl
+          if 'resultList' in globals():
+            resultList.append(result)
+          else:
+            vl = []
+            resultList = vl
+            resultList.append(result)
+        else:
+          return 'Для удаления нужно указать число! Неверные данные!'
+      else:
         return 'Неверные данные!'
+    else:
+      return 'Невведенно значения для удаления символов!'
+  elif l[0] == '3':
+    if len(l) > 1:
+      if 'stresult' in globals():
+        truth = is_digit(l[1])
+        if truth is True:
+          if 'stresult' in globals():
+            if len(stresult) > 0:
+              result = Index(l[1],stresult)
+            else:
+              return ''
+          else:
+            result = ''
+          if 'resultList' in globals():
+            resultList.append(l[0])
+          else:
+            vl = []
+            vl.append(l[0])
+            resultList = vl
+          resultList.append(result)
+        else:
+          return 'Нужно указать число! Неверные данные!'
+      else:
+          return 'Неверные данные!'
+    else:
+      return 'Введите значение i'
   elif l[0] == '4':
     if 'stresult' in globals():
       if len(resultList) == 3:
@@ -308,6 +317,12 @@ def test3():
   print(3,BastShoe('3 13'))
   print(3,BastShoe('3 14'))
   print(3,BastShoe('3 15'))
-  print(3,BastShoe('3 dsf'))	
+  print(3,BastShoe('3 dsf'))
+  print(3,BastShoe('3'))
 
-test = test3()
+def test4():
+  print(1,BastShoe('1 Привет'))
+  print(1,BastShoe('1 , мир!'))
+  print(1,BastShoe('1'))
+
+test = test4()
